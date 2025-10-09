@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PRISM‑Bench: Puzzle‑Based Visual Reasoning Benchmark</title>
+  <style>
+    :root { --maxw: 1000px; }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+           line-height: 1.6; color: #222; background: #fff; margin: 0; }
+    main { max-width: var(--maxw); margin: 0 auto; padding: 2rem 1.25rem; }
+    h1 { font-size: 2.4rem; margin: .2rem 0 .4rem; text-align: center; }
+    h2 { font-size: 1.8rem; margin: 2.2rem 0 1rem; text-align: center; font-weight: 600; }
+    h3 { font-size: 1.2rem; margin: 1.5rem 0 .75rem; text-align: center; font-weight: 600; border-bottom: 2px solid #eee; padding-bottom: .35rem; }
+    p { margin: .6rem 0; }
+    .muted { color: #666; }
+    .center { text-align: center; }
+    img { max-width: 100%; height: auto; border: 0; display: block; margin: 1rem auto; }
+    .logo { max-width: 280px; }
+    .author { font-size: 1rem; color: #666; margin-bottom: 1.2rem; }
+    .chips { display: flex; justify-content: center; gap: .6rem; flex-wrap: wrap; margin: 1.2rem 0 2rem; }
+    .chip { display: inline-flex; align-items: center; gap: .5rem; padding: .5rem 1rem; border-radius: 999px; background: #111; color: #fff; text-decoration: none; font-weight: 600; }
+    .chip:hover { background: #2b2b2b; }
+    ul { padding-left: 1.25rem; }
+    pre { white-space: pre-wrap; word-break: break-word; background: #f8f8f8; border: 1px solid #e5e5e5; padding: 1rem; border-radius: 8px; font-size: .9rem; overflow-x: auto; }
+    footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color: #777; font-size: .95rem; text-align: center; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; align-items: start; }
+    .card { border: 1px solid #eee; border-radius: 12px; padding: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+    .note { background: #f6f8fa; border-left: 4px solid #0366d6; padding: .8rem 1rem; border-radius: 6px; }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: #f0f0f0; padding: .1rem .35rem; border-radius: 4px; border: 1px solid #e5e5e5; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="center">
+      <!-- Replace with your logo asset: docs/images/prism_logo.png -->
+      <img class="logo" src="images/prism_logo.png" alt="PRISM‑Bench Logo (replace images/prism_logo.png)" />
+    </div>
+
+    <h1>PRISM‑Bench</h1>
+    <p class="center muted"><strong>P</strong>uzzle‑based <strong>R</strong>easoning <strong>I</strong>n <strong>S</strong>tructured <strong>M</strong>ultimodality — A Benchmark for Visual Reasoning, CoT, and First‑Error Detection</p>
+
+    <p class="author center">Cheng Wan <span class="muted">et al.</span></p>
+
+    <div class="chips">
+      <!-- Update these hrefs when links are ready -->
+      <a class="chip" href="#" target="_blank">📄 Paper (arXiv — coming soon)</a>
+      <a class="chip" href="#" target="_blank">💾 Code & Dataset (GitHub)</a>
+      <a class="chip" href="#" target="_blank">🧪 Leaderboard</a>
+      <a class="chip" href="#contact">✉️ Contact</a>
+    </div>
+
+    <h2>Overview</h2>
+    <p>
+      PRISM‑Bench is a <strong>puzzle‑based visual reasoning</strong> benchmark that evaluates multimodal LLMs along two complementary tracks:
+    </p>
+    <ul>
+      <li><strong>Answer Prediction (VQA‑style)</strong>: choose the correct option for a structured visual puzzle.</li>
+      <li><strong>First‑Error Detection</strong>: given a step‑by‑step chain‑of‑thought (CoT), identify the <em>first incorrect step</em>.</li>
+    </ul>
+    <p class="note">Core features: annotated CoTs, single‑error CoT variants, category labels, and per‑step correctness tags. v0.1 contains <strong>~1.6k+</strong> curated items across diverse puzzle types.</p>
+
+    <h2>Teaser</h2>
+    <!-- Replace with real teaser image: docs/images/teaser.png (recommended PNG/JPG for web) -->
+    <img src="images/teaser.png" alt="Teaser (replace with docs/images/teaser.png)" />
+    <p class="center muted">If you prefer vector quality, consider also linking a PDF via <span class="kbd">&lt;object&gt;</span>:</p>
+    <pre>&lt;object data="images/teaser.pdf" type="application/pdf" width="100%" height="600"&gt;&lt;/object&gt;</pre>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Tasks & Annotations</h3>
+        <ul>
+          <li>Multiple‑choice answers with definitive ground truth.</li>
+          <li>Human‑vetted CoTs and single‑error CoT variants.</li>
+          <li>Per‑step labels enabling step‑level evaluation.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>What It Measures</h3>
+        <ul>
+          <li>Visual‑logical consistency and reasoning robustness.</li>
+          <li>Sensitivity to subtle rule violations and distractors.</li>
+          <li>Separation of <em>getting the answer</em> vs. <em>verifying the reasoning</em>.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Intended Use</h3>
+        <ul>
+          <li>Benchmark MLLMs beyond final‑answer accuracy.</li>
+          <li>Train/evaluate verifiers and critic models.</li>
+          <li>Probe category‑specific failure modes.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Leaderboard (Preview)</h2>
+    <!-- Replace with a real leaderboard image or table -->
+    <img src="images/leaderboard.png" alt="Leaderboard preview (replace with docs/images/leaderboard.png)" />
+
+    <h2 id="bibtex">BibTeX</h2>
+    <div style="position: relative; max-width: var(--maxw); margin: 0 auto;">
+      <button onclick="copyBibtex()" style="position:absolute; top:10px; right:10px; background:#444; color:#fff; border:0; border-radius:6px; padding:.45rem .7rem; font-size:.8rem; cursor:pointer;">📋 Copy</button>
+      <pre id="bibtex-block">@misc{wan2025prismbench,
+  title={PRISM‑Bench: Puzzle‑Based Visual Reasoning and First‑Error Detection},
+  author={Cheng Wan and collaborators},
+  year={2025},
+  eprint={TBD},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV}
+}</pre>
+    </div>
+
+    <h2 id="contact">Contact</h2>
+    <p class="center">Questions or submissions? Email <a href="mailto:your_email@domain">your_email@domain</a>.</p>
+
+    <footer>
+      <p>© 2025 PRISM‑Bench authors. Content under CC BY‑NC‑ND 4.0 unless noted. Code under an OSI‑approved license.</p>
+      <p class="muted">This is a lightweight single‑file site. Place assets in <span class="kbd">docs/images/</span> and this file at <span class="kbd">docs/index.html</span>.</p>
+    </footer>
+  </main>
+
+  <script>
+    function copyBibtex(){
+      const t = document.getElementById('bibtex-block').innerText;
+      navigator.clipboard.writeText(t).then(()=>alert('BibTeX copied!'));
+    }
+  </script>
+</body>
+</html>
