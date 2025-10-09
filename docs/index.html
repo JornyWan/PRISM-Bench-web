@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PRISM‑Bench: Where Did the Reasoning Go Wrong?</title>
+  <title>PRISM-Bench: Where Did the Reasoning Go Wrong?</title>
   <style>
     :root { --maxw: 1040px; --brand:#111; --muted:#666; --border:#eee; }
     * { box-sizing: border-box; }
@@ -43,17 +43,18 @@
   <main>
     <div class="center">
       <!-- Replace with your logo asset: docs/images/prism_logo.png -->
-      <img class="logo" src="images/prism_logo.png" alt="PRISM‑Bench Logo (replace images/prism_logo.png)" />
+      <img class="logo" src="images/prism_logo.png" alt="PRISM-Bench Logo (replace images/prism_logo.png)" />
     </div>
 
-    <h1>PRISM‑Bench</h1>
-    <p class="center muted"><strong>P</strong>uzzle‑based <strong>R</strong>easoning <strong>I</strong>n <strong>S</strong>tructured <strong>M</strong>ultimodality — Where Did the Reasoning Go Wrong?</p>
+    <h1>PRISM-Bench</h1>
+    <!-- ✅ Correct expansion from the paper -->
+    <p class="center muted"><strong>P</strong>uzzle <strong>R</strong>easoning with <strong>I</strong>n-<strong>S</strong>equence <strong>M</strong>istakes — Where Did the Reasoning Go Wrong?</p>
 
     <p class="author center"><strong>Yusu Qian</strong><sup>*1</sup>, <strong>Cheng Wan</strong><sup>*2,3</sup>, Chao Jia<sup>1</sup>, <strong>Yinfei Yang</strong><sup>1</sup>, Qingyu Zhao<sup>3</sup>, <strong>Zhe Gan</strong><sup>1</sup><br><span class="muted">1 Apple &nbsp;·&nbsp; 2 Cornell &nbsp;·&nbsp; 3 Weill Cornell Medicine</span></p>
 
     <div class="chips">
-      <!-- Update these hrefs when links are ready -->
-      <a class="chip" href="paper.pdf" target="_blank">📄 Paper (PDF)</a>
+      <!-- ✅ paper.pdf now under docs/images/ -->
+      <a class="chip" href="images/paper.pdf" target="_blank">📄 Paper (PDF)</a>
       <a class="chip" href="https://anonymous.4open.science/r/prism-bench-6AD1" target="_blank">💾 Code & Dataset (anonymous)</a>
       <a class="chip" href="#data">📚 Data & Stats</a>
       <a class="chip" href="#results">📈 Results</a>
@@ -74,24 +75,22 @@
     <h2 id="overview">Overview</h2>
     <div class="wrap">
       <p>
-        PRISM‑Bench is a <strong>puzzle‑based visual reasoning</strong> benchmark that evaluates multimodal LLMs along two complementary tracks:
+        PRISM-Bench is a <strong>puzzle-based visual reasoning</strong> benchmark that evaluates multimodal LLMs along two complementary tracks:
       </p>
       <ul>
-        <li><strong>Answer Prediction (VQA‑style)</strong> — choose the correct option for a structured visual puzzle.</li>
-        <li><strong>First‑Error Detection</strong> — given a step‑by‑step chain‑of‑thought (CoT) with exactly one injected mistake, <em>identify the first incorrect step</em>.</li>
+        <li><strong>Answer Prediction (VQA-style)</strong> — choose the correct option for a structured visual puzzle.</li>
+        <li><strong>First-Error Detection</strong> — given a step-by-step chain-of-thought (CoT) with exactly one injected mistake, <em>identify the first incorrect step</em>.</li>
       </ul>
       <p class="note small">
-        Why this matters: PRISM‑Bench <em>decouples</em> answer generation from reasoning verification, exposing where models’ explanations become inconsistent even when final answers look plausible.
+        Why this matters: PRISM-Bench <em>decouples</em> answer generation from reasoning verification, exposing where models’ explanations become inconsistent even when final answers look plausible.
       </p>
     </div>
 
     <h2 id="teaser">Teaser</h2>
     <div class="wrap">
-      <!-- Prefer vector PDF with an <object>, and offer a PNG/JPG fallback if needed -->
-      <object data="images/teaser_compressed.pdf" type="application/pdf" width="100%" height="560">
-        <p class="center muted">Your browser can’t display PDFs inline. <a href="images/teaser_compressed.pdf" target="_blank">Open teaser_compressed.pdf</a></p>
-      </object>
-      <p class="figcap">Overview of PRISM‑Bench: solve puzzles and diagnose the <em>first</em> mistake in a corrupted CoT.</p>
+      <!-- ✅ Direct image (no embedded viewer) -->
+      <img src="images/teaser.pdf" alt="Overview of PRISM-Bench: solve puzzles and diagnose the first mistake in a corrupted CoT">
+      <p class="figcap">Overview of PRISM-Bench: solve puzzles and diagnose the <em>first</em> mistake in a corrupted CoT.</p>
     </div>
 
     <div class="grid">
@@ -99,7 +98,7 @@
         <h3>What’s in the benchmark</h3>
         <ul>
           <li><strong>1,044</strong> curated visual puzzles across <strong>6 categories</strong>.</li>
-          <li>Each item includes image, question, ground‑truth answer, <em>correct</em> CoT, and a <em>single‑error</em> CoT.</li>
+          <li>Each item includes image, question, ground-truth answer, <em>correct</em> CoT, and a <em>single-error</em> CoT.</li>
           <li>Human review ensures the first error is unambiguous.</li>
         </ul>
       </div>
@@ -117,7 +116,7 @@
       <div class="card">
         <h3>Intended use</h3>
         <ul>
-          <li>Benchmark step‑wise verification, not just final answers.</li>
+          <li>Benchmark step-wise verification, not just final answers.</li>
           <li>Train/evaluate verifiers and critic models.</li>
           <li>Probe error types and failure modes.</li>
         </ul>
@@ -126,9 +125,8 @@
 
     <h2 id="data">Dataset & Examples</h2>
     <div class="wrap">
-      <object data="images/vqa6.pdf" type="application/pdf" width="100%" height="560">
-        <p class="center muted">Your browser can’t display PDFs inline. <a href="images/vqa6.pdf" target="_blank">Open vqa6.pdf</a></p>
-      </object>
+      <!-- ✅ Direct image (no embedded viewer) -->
+      <img src="images/vqa6.pdf" alt="Examples from all six puzzle categories">
       <p class="figcap">Examples from all six puzzle categories.</p>
     </div>
 
@@ -140,7 +138,7 @@
       </div>
       <div class="card">
         <h3>(B) Error Diagnosis</h3>
-        <p>Model sees the puzzle + question + a multi‑step CoT with one error and must return the <strong>first incorrect step</strong>. Metric: <strong>error‑detection accuracy</strong>.</p>
+        <p>Model sees the puzzle + question + a multi-step CoT with one error and must return the <strong>first incorrect step</strong>. Metric: <strong>error-detection accuracy</strong>.</p>
       </div>
     </div>
 
@@ -153,30 +151,30 @@
       <div>
         <img src="images/total_steps_hatched.png" alt="Total steps per reasoning" />
         <img src="images/first_error_step_hatched.png" alt="Index of first error step" />
-        <p class="figcap">Distributions of reasoning lengths and first‑error positions.</p>
+        <p class="figcap">Distributions of reasoning lengths and first-error positions.</p>
       </div>
     </div>
 
     <h2 id="results">Results (Snapshot)</h2>
     <div class="wrap">
       <div class="card">
-        <h3>First‑Error Detection (overall)</h3>
+        <h3>First-Error Detection (overall)</h3>
         <p class="small">
-          Frontier models surpass the 50% mark on localizing the first incorrect step (e.g., SkyWork‑R1V3‑38B ≈62.3%, MiniCPM‑V‑4.5 ≈58.1%, Qwen2.5‑VL ≈57.0%, GPT‑5 ≈52.6%), while several mid‑scale models hover near chance.
+          Frontier models surpass the 50% mark on localizing the first incorrect step (e.g., SkyWork-R1V3-38B ≈62.3%, MiniCPM-V-4.5 ≈58.1%, Qwen2.5-VL ≈57.0%, GPT-5 ≈52.6%), while several mid-scale models hover near chance.
         </p>
       </div>
       <div class="card">
         <h3>VQA Puzzle Solving</h3>
         <p class="small">
-          Overall accuracies are modest due to puzzle difficulty (e.g., GPT‑5 Macro Avg. ≈39.6%). Some families (e.g., Shape Reasoning) are easier than others (e.g., Text‑Letter‑Number).
+          Overall accuracies are modest due to puzzle difficulty (e.g., GPT-5 Macro Avg. ≈39.6%). Some families (e.g., Shape Reasoning) are easier than others (e.g., Text-Letter-Number).
         </p>
       </div>
     </div>
 
-    <h2 id="correlation">VQA vs. First‑Error Detection</h2>
+    <h2 id="correlation">VQA vs. First-Error Detection</h2>
     <div class="wrap">
-      <img src="images/line_plot_1044_21model_macro.png" alt="Correlation between VQA and first‑error detection rankings" />
-      <p class="figcap">Only moderate correlation between VQA macro accuracy and first‑error detection — the two tracks capture complementary skills.</p>
+      <img src="images/line_plot_1044_21model_macro.png" alt="Correlation between VQA and first-error detection rankings" />
+      <p class="figcap">Only moderate correlation between VQA macro accuracy and first-error detection — the two tracks capture complementary skills.</p>
     </div>
 
     <div class="hr"></div>
@@ -187,20 +185,20 @@
       <pre id="bibtex-block">@inproceedings{qian2025prism,
   title={Where Did the Reasoning Go Wrong? A Benchmark of Puzzle-Based Visual Tasks with CoT Error Detection},
   author={Yusu Qian and Cheng Wan and Chao Jia and Yinfei Yang and Qingyu Zhao and Zhe Gan},
-  booktitle={arxiv},
+  booktitle={ICLR},
   year={2025}
 }</pre>
     </div>
 
     <h2 id="appendix">Appendix Figures (optional)</h2>
-    <p class="center muted small">You can link to additional figures (e.g., error‑type examples) from <span class="kbd">images/appendix_image/</span>.</p>
+    <p class="center muted small">You can link to additional figures (e.g., error-type examples) from <span class="kbd">images/appendix_image/</span>.</p>
 
     <h2 id="contact">Contact</h2>
     <p class="center">Questions or submissions? Email <a href="mailto:cw2222@cornell.edu">cw2222@cornell.edu</a> or <a href="mailto:yqian22@apple.com">yqian22@apple.com</a>.</p>
 
     <footer>
-      <p>© 2025 PRISM‑Bench authors. Content intended for research/academic use. Unless noted, assets are released under the terms in the repository.</p>
-      <p class="muted">Single‑file site. Place assets in <span class="kbd">docs/images/</span> and this page at <span class="kbd">docs/index.html</span>.</p>
+      <p>© 2025 PRISM-Bench authors. Content intended for research/academic use. Unless noted, assets are released under the terms in the repository.</p>
+      <p class="muted">Single-file site. Place assets in <span class="kbd">docs/images/</span> and this page at <span class="kbd">docs/index.html</span>.</p>
     </footer>
   </main>
 
