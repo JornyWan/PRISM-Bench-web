@@ -3,32 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PRISM‑Bench: Puzzle‑Based Visual Reasoning Benchmark</title>
+  <title>PRISM‑Bench: Where Did the Reasoning Go Wrong?</title>
   <style>
-    :root { --maxw: 1000px; }
+    :root { --maxw: 1040px; --brand:#111; --muted:#666; --border:#eee; }
     * { box-sizing: border-box; }
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-           line-height: 1.6; color: #222; background: #fff; margin: 0; }
-    main { max-width: var(--maxw); margin: 0 auto; padding: 2rem 1.25rem; }
-    h1 { font-size: 2.4rem; margin: .2rem 0 .4rem; text-align: center; }
-    h2 { font-size: 1.8rem; margin: 2.2rem 0 1rem; text-align: center; font-weight: 600; }
-    h3 { font-size: 1.2rem; margin: 1.5rem 0 .75rem; text-align: center; font-weight: 600; border-bottom: 2px solid #eee; padding-bottom: .35rem; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; line-height: 1.6; color: #222; background: #fff; margin: 0; }
+    main { max-width: var(--maxw); margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    h1 { font-size: 2.6rem; margin: .2rem 0 .4rem; text-align: center; letter-spacing: .2px; }
+    h2 { font-size: 1.9rem; margin: 2.2rem 0 1rem; text-align: center; font-weight: 700; }
+    h3 { font-size: 1.2rem; margin: 1.5rem 0 .75rem; text-align: center; font-weight: 700; border-bottom: 2px solid var(--border); padding-bottom: .35rem; }
     p { margin: .6rem 0; }
-    .muted { color: #666; }
+    .muted { color: var(--muted); }
     .center { text-align: center; }
     img { max-width: 100%; height: auto; border: 0; display: block; margin: 1rem auto; }
     .logo { max-width: 280px; }
-    .author { font-size: 1rem; color: #666; margin-bottom: 1.2rem; }
+    .author { font-size: 1rem; color: var(--muted); margin-bottom: 1.2rem; }
     .chips { display: flex; justify-content: center; gap: .6rem; flex-wrap: wrap; margin: 1.2rem 0 2rem; }
-    .chip { display: inline-flex; align-items: center; gap: .5rem; padding: .5rem 1rem; border-radius: 999px; background: #111; color: #fff; text-decoration: none; font-weight: 600; }
+    .chip { display: inline-flex; align-items: center; gap: .5rem; padding: .55rem 1rem; border-radius: 999px; background: var(--brand); color: #fff; text-decoration: none; font-weight: 700; }
     .chip:hover { background: #2b2b2b; }
     ul { padding-left: 1.25rem; }
-    pre { white-space: pre-wrap; word-break: break-word; background: #f8f8f8; border: 1px solid #e5e5e5; padding: 1rem; border-radius: 8px; font-size: .9rem; overflow-x: auto; }
-    footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color: #777; font-size: .95rem; text-align: center; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; align-items: start; }
-    .card { border: 1px solid #eee; border-radius: 12px; padding: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+    pre { white-space: pre-wrap; word-break: break-word; background: #f8f8f8; border: 1px solid #e5e5e5; padding: 1rem; border-radius: 8px; font-size: .92rem; overflow-x: auto; }
+    footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: #777; font-size: .95rem; text-align: center; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1rem; align-items: start; }
+    .card { border: 1px solid var(--border); border-radius: 12px; padding: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,.04); background: #fff; }
     .note { background: #f6f8fa; border-left: 4px solid #0366d6; padding: .8rem 1rem; border-radius: 6px; }
     .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: #f0f0f0; padding: .1rem .35rem; border-radius: 4px; border: 1px solid #e5e5e5; }
+    .wrap { max-width: 860px; margin: 0 auto; }
+    .two-col { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 1rem; align-items: start; }
+    .figcap { text-align:center; font-size:.95rem; color:#555; margin-top:.3rem; margin-bottom:1.2rem; }
+    .small { font-size:.92rem; }
+    .pill { font-size:.85rem; display:inline-block; background:#111; color:#fff; padding:.18rem .55rem; border-radius:999px; }
+    .toc { display:flex; gap:.5rem; flex-wrap:wrap; justify-content:center; margin: 1rem 0 2rem; }
+    .toc a { text-decoration:none; padding:.35rem .7rem; border:1px solid var(--border); border-radius:999px; color:#333; }
+    .toc a:hover{ background:#fafafa; }
+    .hr { height:1px; background:var(--border); margin:2rem 0; }
   </style>
 </head>
 <body>
@@ -39,84 +47,160 @@
     </div>
 
     <h1>PRISM‑Bench</h1>
-    <p class="center muted"><strong>P</strong>uzzle‑based <strong>R</strong>easoning <strong>I</strong>n <strong>S</strong>tructured <strong>M</strong>ultimodality — A Benchmark for Visual Reasoning, CoT, and First‑Error Detection</p>
+    <p class="center muted"><strong>P</strong>uzzle‑based <strong>R</strong>easoning <strong>I</strong>n <strong>S</strong>tructured <strong>M</strong>ultimodality — Where Did the Reasoning Go Wrong?</p>
 
-    <p class="author center">Cheng Wan <span class="muted">et al.</span></p>
+    <p class="author center"><strong>Yusu Qian</strong><sup>*1</sup>, <strong>Cheng Wan</strong><sup>*2,3</sup>, Chao Jia<sup>1</sup>, <strong>Yinfei Yang</strong><sup>1</sup>, Qingyu Zhao<sup>3</sup>, <strong>Zhe Gan</strong><sup>1</sup><br><span class="muted">1 Apple &nbsp;·&nbsp; 2 Cornell &nbsp;·&nbsp; 3 Weill Cornell Medicine</span></p>
 
     <div class="chips">
       <!-- Update these hrefs when links are ready -->
-      <a class="chip" href="#" target="_blank">📄 Paper (arXiv — coming soon)</a>
-      <a class="chip" href="#" target="_blank">💾 Code & Dataset (GitHub)</a>
-      <a class="chip" href="#" target="_blank">🧪 Leaderboard</a>
-      <a class="chip" href="#contact">✉️ Contact</a>
+      <a class="chip" href="paper.pdf" target="_blank">📄 Paper (PDF)</a>
+      <a class="chip" href="https://anonymous.4open.science/r/prism-bench-6AD1" target="_blank">💾 Code & Dataset (anonymous)</a>
+      <a class="chip" href="#data">📚 Data & Stats</a>
+      <a class="chip" href="#results">📈 Results</a>
+      <a class="chip" href="#bibtex">📎 BibTeX</a>
     </div>
 
-    <h2>Overview</h2>
-    <p>
-      PRISM‑Bench is a <strong>puzzle‑based visual reasoning</strong> benchmark that evaluates multimodal LLMs along two complementary tracks:
-    </p>
-    <ul>
-      <li><strong>Answer Prediction (VQA‑style)</strong>: choose the correct option for a structured visual puzzle.</li>
-      <li><strong>First‑Error Detection</strong>: given a step‑by‑step chain‑of‑thought (CoT), identify the <em>first incorrect step</em>.</li>
-    </ul>
-    <p class="note">Core features: annotated CoTs, single‑error CoT variants, category labels, and per‑step correctness tags. v0.1 contains <strong>~1.6k+</strong> curated items across diverse puzzle types.</p>
+    <div class="toc">
+      <a href="#overview">Overview</a>
+      <a href="#teaser">Teaser</a>
+      <a href="#data">Dataset</a>
+      <a href="#protocol">Evaluation Protocol</a>
+      <a href="#error-taxonomy">Error Taxonomy</a>
+      <a href="#results">Results</a>
+      <a href="#correlation">Correlation</a>
+      <a href="#appendix">Appendix Figures</a>
+    </div>
 
-    <h2>Teaser</h2>
-    <!-- Replace with real teaser image: docs/images/teaser.png (recommended PNG/JPG for web) -->
-    <img src="images/teaser.png" alt="Teaser (replace with docs/images/teaser.png)" />
-    <p class="center muted">If you prefer vector quality, consider also linking a PDF via <span class="kbd">&lt;object&gt;</span>:</p>
-    <pre>&lt;object data="images/teaser.pdf" type="application/pdf" width="100%" height="600"&gt;&lt;/object&gt;</pre>
+    <h2 id="overview">Overview</h2>
+    <div class="wrap">
+      <p>
+        PRISM‑Bench is a <strong>puzzle‑based visual reasoning</strong> benchmark that evaluates multimodal LLMs along two complementary tracks:
+      </p>
+      <ul>
+        <li><strong>Answer Prediction (VQA‑style)</strong> — choose the correct option for a structured visual puzzle.</li>
+        <li><strong>First‑Error Detection</strong> — given a step‑by‑step chain‑of‑thought (CoT) with exactly one injected mistake, <em>identify the first incorrect step</em>.</li>
+      </ul>
+      <p class="note small">
+        Why this matters: PRISM‑Bench <em>decouples</em> answer generation from reasoning verification, exposing where models’ explanations become inconsistent even when final answers look plausible.
+      </p>
+    </div>
+
+    <h2 id="teaser">Teaser</h2>
+    <div class="wrap">
+      <!-- Prefer vector PDF with an <object>, and offer a PNG/JPG fallback if needed -->
+      <object data="images/teaser.pdf" type="application/pdf" width="100%" height="560">
+        <p class="center muted">Your browser can’t display PDFs inline. <a href="images/teaser.pdf" target="_blank">Open teaser.pdf</a></p>
+      </object>
+      <p class="figcap">Overview of PRISM‑Bench: solve puzzles and diagnose the <em>first</em> mistake in a corrupted CoT.</p>
+    </div>
 
     <div class="grid">
       <div class="card">
-        <h3>Tasks & Annotations</h3>
+        <h3>What’s in the benchmark</h3>
         <ul>
-          <li>Multiple‑choice answers with definitive ground truth.</li>
-          <li>Human‑vetted CoTs and single‑error CoT variants.</li>
-          <li>Per‑step labels enabling step‑level evaluation.</li>
+          <li><strong>1,044</strong> curated visual puzzles across <strong>6 categories</strong>.</li>
+          <li>Each item includes image, question, ground‑truth answer, <em>correct</em> CoT, and a <em>single‑error</em> CoT.</li>
+          <li>Human review ensures the first error is unambiguous.</li>
         </ul>
       </div>
       <div class="card">
-        <h3>What It Measures</h3>
+        <h3>Categories</h3>
         <ul>
-          <li>Visual‑logical consistency and reasoning robustness.</li>
-          <li>Sensitivity to subtle rule violations and distractors.</li>
-          <li>Separation of <em>getting the answer</em> vs. <em>verifying the reasoning</em>.</li>
+          <li>Special Patterns (SP)</li>
+          <li>Black & White Blocks (BWB)</li>
+          <li>Spatial Reasoning (SR)</li>
+          <li>Position–Style–Attribute–Count (PSAC)</li>
+          <li>Shape Reasoning (SRO)</li>
+          <li>Text–Letter–Number (TLN)</li>
         </ul>
       </div>
       <div class="card">
-        <h3>Intended Use</h3>
+        <h3>Intended use</h3>
         <ul>
-          <li>Benchmark MLLMs beyond final‑answer accuracy.</li>
+          <li>Benchmark step‑wise verification, not just final answers.</li>
           <li>Train/evaluate verifiers and critic models.</li>
-          <li>Probe category‑specific failure modes.</li>
+          <li>Probe error types and failure modes.</li>
         </ul>
       </div>
     </div>
 
-    <h2>Leaderboard (Preview)</h2>
-    <!-- Replace with a real leaderboard image or table -->
-    <img src="images/leaderboard.png" alt="Leaderboard preview (replace with docs/images/leaderboard.png)" />
+    <h2 id="data">Dataset & Examples</h2>
+    <div class="wrap">
+      <object data="images/vqa6.pdf" type="application/pdf" width="100%" height="560">
+        <p class="center muted">Your browser can’t display PDFs inline. <a href="images/vqa6.pdf" target="_blank">Open vqa6.pdf</a></p>
+      </object>
+      <p class="figcap">Examples from all six puzzle categories.</p>
+    </div>
+
+    <h2 id="protocol">Evaluation Protocol</h2>
+    <div class="two-col wrap">
+      <div class="card">
+        <h3>(A) Answer Evaluation</h3>
+        <p>Model sees the puzzle + question and outputs a final choice. Metric: <strong>answer accuracy</strong> (exact match).</p>
+      </div>
+      <div class="card">
+        <h3>(B) Error Diagnosis</h3>
+        <p>Model sees the puzzle + question + a multi‑step CoT with one error and must return the <strong>first incorrect step</strong>. Metric: <strong>error‑detection accuracy</strong>.</p>
+      </div>
+    </div>
+
+    <h2 id="error-taxonomy">Error Taxonomy & Statistics</h2>
+    <div class="two-col wrap">
+      <div>
+        <img src="images/benchmark_dist_alt.png" alt="Distribution of error types" />
+        <p class="figcap">24 corruption types grouped into 7 families (e.g., AFM, CPE, LDE, SPE, VSM).</p>
+      </div>
+      <div>
+        <img src="images/total_steps_hatched.png" alt="Total steps per reasoning" />
+        <img src="images/first_error_step_hatched.png" alt="Index of first error step" />
+        <p class="figcap">Distributions of reasoning lengths and first‑error positions.</p>
+      </div>
+    </div>
+
+    <h2 id="results">Results (Snapshot)</h2>
+    <div class="wrap">
+      <div class="card">
+        <h3>First‑Error Detection (overall)</h3>
+        <p class="small">
+          Frontier models surpass the 50% mark on localizing the first incorrect step (e.g., SkyWork‑R1V3‑38B ≈62.3%, MiniCPM‑V‑4.5 ≈58.1%, Qwen2.5‑VL ≈57.0%, GPT‑5 ≈52.6%), while several mid‑scale models hover near chance.
+        </p>
+      </div>
+      <div class="card">
+        <h3>VQA Puzzle Solving</h3>
+        <p class="small">
+          Overall accuracies are modest due to puzzle difficulty (e.g., GPT‑5 Macro Avg. ≈39.6%). Some families (e.g., Shape Reasoning) are easier than others (e.g., Text‑Letter‑Number).
+        </p>
+      </div>
+    </div>
+
+    <h2 id="correlation">VQA vs. First‑Error Detection</h2>
+    <div class="wrap">
+      <img src="images/line_plot_1044_21model_macro.png" alt="Correlation between VQA and first‑error detection rankings" />
+      <p class="figcap">Only moderate correlation between VQA macro accuracy and first‑error detection — the two tracks capture complementary skills.</p>
+    </div>
+
+    <div class="hr"></div>
 
     <h2 id="bibtex">BibTeX</h2>
-    <div style="position: relative; max-width: var(--maxw); margin: 0 auto;">
+    <div class="wrap" style="position: relative;">
       <button onclick="copyBibtex()" style="position:absolute; top:10px; right:10px; background:#444; color:#fff; border:0; border-radius:6px; padding:.45rem .7rem; font-size:.8rem; cursor:pointer;">📋 Copy</button>
-      <pre id="bibtex-block">@misc{wan2025prismbench,
-  title={PRISM‑Bench: Puzzle‑Based Visual Reasoning and First‑Error Detection},
-  author={Cheng Wan and collaborators},
-  year={2025},
-  eprint={TBD},
-  archivePrefix={arXiv},
-  primaryClass={cs.CV}
+      <pre id="bibtex-block">@inproceedings{qian2025prism,
+  title={Where Did the Reasoning Go Wrong? A Benchmark of Puzzle-Based Visual Tasks with CoT Error Detection},
+  author={Yusu Qian and Cheng Wan and Chao Jia and Yinfei Yang and Qingyu Zhao and Zhe Gan},
+  booktitle={arxiv},
+  year={2025}
 }</pre>
     </div>
 
+    <h2 id="appendix">Appendix Figures (optional)</h2>
+    <p class="center muted small">You can link to additional figures (e.g., error‑type examples) from <span class="kbd">images/appendix_image/</span>.</p>
+
     <h2 id="contact">Contact</h2>
-    <p class="center">Questions or submissions? Email <a href="mailto:your_email@domain">your_email@domain</a>.</p>
+    <p class="center">Questions or submissions? Email <a href="mailto:cw2222@cornell.edu">cw2222@cornell.edu</a> or <a href="mailto:yqian22@apple.com">yqian22@apple.com</a>.</p>
 
     <footer>
-      <p>© 2025 PRISM‑Bench authors. Content under CC BY‑NC‑ND 4.0 unless noted. Code under an OSI‑approved license.</p>
-      <p class="muted">This is a lightweight single‑file site. Place assets in <span class="kbd">docs/images/</span> and this file at <span class="kbd">docs/index.html</span>.</p>
+      <p>© 2025 PRISM‑Bench authors. Content intended for research/academic use. Unless noted, assets are released under the terms in the repository.</p>
+      <p class="muted">Single‑file site. Place assets in <span class="kbd">docs/images/</span> and this page at <span class="kbd">docs/index.html</span>.</p>
     </footer>
   </main>
 
