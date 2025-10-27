@@ -39,9 +39,10 @@
     .hr { height:1px; background:var(--border); margin:2rem 0; }
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
     .pdfwrap { margin: 1rem auto 1.2rem; }
-    .pdfobject {
-      width: 100%;
-      height: clamp(360px, 58vw, 820px);
+    .pdfcanvas {
+      width: 100%; /* 页面按容器等比缩放 */
+      height: auto;
+      display: block;
       border: 1px solid var(--border);
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,.06);
@@ -172,29 +173,18 @@
     
       <!-- First-Error Detection Leaderboard -->
       <figure class="pdfwrap">
-        <object
-          data="images/leaderboard_first_error.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
-          type="application/pdf"
-          class="pdfobject"
-          aria-label="First-Error Detection Leaderboard">
-          <p>PDF preview not supported. <a href="images/leaderboard_first_error.pdf">Download the leaderboard</a>.</p>
-        </object>
+        <canvas id="lb-fed" class="pdfcanvas"></canvas>
         <figcaption class="figcap">First-Error Detection leaderboard（overall + category accuracy）。</figcaption>
       </figure>
     
       <!-- VQA Leaderboard -->
       <figure class="pdfwrap">
-        <object
-          data="images/leaderboard_vqa.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
-          type="application/pdf"
-          class="pdfobject"
-          aria-label="VQA Leaderboard">
-          <p>PDF preview not supported. <a href="images/leaderboard_vqa.pdf">Download the leaderboard</a>.</p>
-        </object>
+        <canvas id="lb-vqa" class="pdfcanvas"></canvas>
         <figcaption class="figcap">VQA leaderboard（macro avg., overall + per-category）。</figcaption>
       </figure>
     
     </div>
+    
 
 
     <h2 id="correlation">VQA vs. First-Error Detection</h2>
@@ -209,7 +199,7 @@
     <div class="wrap" style="position: relative;">
       <button onclick="copyBibtex()" style="position:absolute; top:10px; right:10px; background:#444; color:#fff; border:0; border-radius:6px; padding:.45rem .7rem; font-size:.8rem; cursor:pointer;">📋 Copy</button>
       <pre id="bibtex-block">@inproceedings{qian2025prism,
-  title={Where Did the Reasoning Go Wrong? A Benchmark of Puzzle-Based Visual Tasks with CoT Error Detection},
+  title={PRISM-Bench: A Benchmark of Puzzle-Based Visual Tasks with CoT Error Detection},
   author={Yusu Qian and Cheng Wan and Chao Jia and Yinfei Yang and Qingyu Zhao and Zhe Gan},
   booktitle={arxiv},
   year={2025}
@@ -231,5 +221,48 @@
       navigator.clipboard.writeText(t).then(()=>alert('BibTeX copied!'));
     }
   </script>
+  <!-- PDF.js (no UI, just render to canvas) -->
+  <script src="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
+  
+    async function renderPDFToCanvas(url, canvasId, pageNumber = 1) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = canvas.getContext('2d', { alpha: false });
+  
+      const pdf = await pdfjsLib.getDocument(url).promise;
+      const page = await pdf.getPage(pageNumber);
+  
+      const containerWidth = canvas.parentElement.clientWidth;
+      const dpr = window.devicePixelRatio || 1;
+  
+      const viewport0 = page.getViewport({ scale: 1 });
+      const scale = containerWidth / viewport0.width;
+      const viewport = page.getViewport({ scale: scale * dpr });
+  
+      canvas.width  = viewport.width;
+      canvas.height = viewport.height;
+      canvas.style.width  = (viewport.width  / dpr) + "px";
+      canvas.style.height = (viewport.height / dpr) + "px";
+  
+      await page.render({ canvasContext: ctx, viewport }).promise;
+    }
+  
+    const FED_URL = "images/leaderboard_first_error.pdf"; 
+    const VQA_URL = "images/leaderboard_vqa.pdf";         
+    renderPDFToCanvas(FED_URL, "lb-fed");
+    renderPDFToCanvas(VQA_URL, "lb-vqa");
+  
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        renderPDFToCanvas(FED_URL, "lb-fed");
+        renderPDFToCanvas(VQA_URL, "lb-vqa");
+      }, 150);
+    });
+  </script>
+
 </body>
 </html>
